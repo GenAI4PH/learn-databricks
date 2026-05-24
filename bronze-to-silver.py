@@ -12,13 +12,13 @@ df_product = df1.join(df2, "customerID").select("first_name", "last_name", "prod
 display(df_product)
 
 #  Aggregate at customer level
-# print("Aggregating at customer level")
-# df_customer = df1.join(df2, "customerID").select("first_name", "last_name", "product", "quantity", "unitPrice", col("totalPrice").cast("float"))\
-#     .groupBy("first_name", "last_name")\
-#     .agg(sum("totalPrice").alias("totalSales"))\
-#     .orderBy(desc("totalSales"))
+print("Aggregating at customer level")
+df_customer = df1.join(df2, "customerID").select("first_name", "last_name", "product", "quantity", "unitPrice", col("totalPrice").cast("float"))\
+    .groupBy("first_name", "last_name")\
+    .agg(sum("totalPrice").alias("totalSales"))\
+    .orderBy(desc("totalSales"))
 
-# display(df_customer)
+display(df_customer.limit(10))
 
 #  Aggregate at City level
 print("Aggregating at City level")
@@ -27,7 +27,7 @@ df_city = df1.join(df2, "customerID").select("city", "product", "quantity", "uni
     .agg(sum("totalPrice").alias("totalSales"))\
     .orderBy(desc("totalSales"))
 
-display(df_city)
+display(df_city.limit(10))
 
 
 
