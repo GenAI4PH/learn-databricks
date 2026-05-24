@@ -20,4 +20,14 @@ display(df_product)
 
 # display(df_customer)
 
+#  Aggregate at City level
+print("Aggregating at City level")
+df_city = df1.join(df2, "customerID").select("city", "product", "quantity", "unitPrice", col("totalPrice").cast("float"))\
+    .groupBy("city")\
+    .agg(sum("totalPrice").alias("totalSales"))\
+    .orderBy(desc("totalSales"))
+
+display(df_city)
+
+
 
