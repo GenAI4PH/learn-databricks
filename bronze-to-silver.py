@@ -8,3 +8,4 @@ df = df1.join(df2, "customerID").select("first_name", "last_name", "product", "q
     .orderBy(desc("totalSales"))
 
 display(df)
+
