@@ -12,12 +12,12 @@ df_product = df1.join(df2, "customerID").select("first_name", "last_name", "prod
 display(df_product)
 
 #  Aggregate at customer level
-print("Aggregating at customer level")
-df_customer = df1.join(df2, "customerID").select("first_name", "last_name", "product", "quantity", "unitPrice", col("totalPrice").cast("float"))\
-    .groupBy("first_name", "last_name")\
-    .agg(sum("totalPrice").alias("totalSales"))\
-    .orderBy(desc("totalSales"))
+# print("Aggregating at customer level")
+# df_customer = df1.join(df2, "customerID").select("first_name", "last_name", "product", "quantity", "unitPrice", col("totalPrice").cast("float"))\
+#     .groupBy("first_name", "last_name")\
+#     .agg(sum("totalPrice").alias("totalSales"))\
+#     .orderBy(desc("totalSales"))
 
-display(df_customer)
+# display(df_customer)
 
 
