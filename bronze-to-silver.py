@@ -2,10 +2,22 @@
 df1 = spark.read.table("samples.bakehouse.sales_transactions")
 df2 = spark.read.table("samples.bakehouse.sales_customers")
 from pyspark.sql.functions import sum, desc, col
-df = df1.join(df2, "customerID").select("first_name", "last_name", "product", "quantity", "unitPrice", col("totalPrice").cast("float"))\
+# Aggregate at product level
+print("Aggregating at product level")
+df_product = df1.join(df2, "customerID").select("first_name", "last_name", "product", "quantity", "unitPrice", col("totalPrice").cast("float"))\
     .groupBy("product")\
     .agg(sum("totalPrice").alias("totalSales"))\
     .orderBy(desc("totalSales"))
 
-display(df)
+display(df_product)
+
+#  Aggregate at customer level
+print("Aggregating at customer level")
+df_customer = df1.join(df2, "customerID").select("first_name", "last_name", "product", "quantity", "unitPrice", col("totalPrice").cast("float"))\
+    .groupBy("first_name", "last_name")\
+    .agg(sum("totalPrice").alias("totalSales"))\
+    .orderBy(desc("totalSales"))
+
+display(df_customer)
+
 
